@@ -1,5 +1,7 @@
 package com.novellius;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,7 +10,15 @@ public class Direccion {
 	private String calle;
 	private String cp;
 	
-	
+	@Autowired
+	public void setCalle(@Value("Elm Streeth")String calle) {
+		this.calle = calle;
+	}
+	@Autowired
+	public void setCp(@Value("1")String cp) {
+		this.cp = cp;
+	}
+
 	public Direccion() {
 		super();
 	}
