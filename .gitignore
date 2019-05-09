@@ -1,6 +1,7 @@
+pom.xml
 .classpath
 .project
 .settings/
 .springBeans
 target/
-pom.xml
+
