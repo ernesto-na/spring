@@ -1,5 +1,8 @@
 package com.novellius;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Direccion {
 
 	private String calle;

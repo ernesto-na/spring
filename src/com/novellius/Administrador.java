@@ -1,14 +1,17 @@
 package com.novellius;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Administrador {
 
 	private Integer idAd;
 	private String nombre;
 	
-	Direccion direccion;
+	//@Autowired
+	private Direccion direccion;
 	
 	
-	
+	@Autowired
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
 	}

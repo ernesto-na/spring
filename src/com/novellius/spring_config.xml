@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 
 	<bean id="admin" class="com.novellius.Administrador">
@@ -9,8 +11,9 @@
 	<property name="nombre" value="Ernesto"></property>
 	<property name="direccion" ref="direccion"></property>
 	</bean>
-	<bean id="direccion" class="com.novellius.Direccion">
-		<constructor-arg name="calle" value="Encino"></constructor-arg>
-		<constructor-arg name="cp" value="55024"></constructor-arg>
-	</bean>
+<!-- 	<bean id="direccion" class="com.novellius.Direccion"> -->
+<!-- 		<constructor-arg name="calle" value="Encino"></constructor-arg> -->
+<!-- 		<constructor-arg name="cp" value="55024"></constructor-arg> -->
+<!-- 	</bean> -->
+	<context:component-scan base-package="com.novellius"></context:component-scan>
 </beans>
