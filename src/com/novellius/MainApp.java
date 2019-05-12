@@ -23,24 +23,29 @@ public class MainApp {
 		Timestamp ts = new Timestamp(new Date().getTime());
 		
 		Admin admin = new Admin();
-		admin.setNombre("Ernest");
+		admin.setNombre("Juss");
 		admin.setCargo("developer");
 		admin.setFechaCreacion(ts);
 		
 		
 		
 		try {
-			if(adminDao.save(admin)){
-				System.out.println("Guardado correctamente");
-			}else {
-				System.out.println("No se pudo guardar");
-			}
-			List<Admin> admins= adminDao.findAll();
+			//adminDao.save(admin);
+//			if(adminDao.save(admin)){
+//				System.out.println("Guardado correctamente");
+//			}else {
+//				System.out.println("No se pudo guardar");
+//			}
+//			List<Admin> admins= adminDao.findAll();
+//			
+//			for(Admin admin2 :admins) {
+//				
+//				System.out.println(admin2);
+//			}
 			
-			for(Admin admin2 :admins) {
-				
-				System.out.println(admin2);
-			}
+			System.out.println(adminDao.findById(4));
+			System.out.println(adminDao.findById(1));
+			System.out.println(adminDao.findByNombre("J").toString());
 			
 		}catch(CannotGetJdbcConnectionException ex) {
 			

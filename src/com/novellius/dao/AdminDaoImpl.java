@@ -8,11 +8,13 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.novellius.pojo.Admin;
+import com.novellius.pojo.AdminRowMapper;
 
 @Component("adminDao")
 public class AdminDaoImpl implements AdminDao{
@@ -27,10 +29,16 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public Boolean save(Admin admin) {
 		// TODO Auto-generated method stub
-		MapSqlParameterSource paramMap = new MapSqlParameterSource();
-		paramMap.addValue("nombre", admin.getNombre());
-		paramMap.addValue("cargo", admin.getCargo());
-		paramMap.addValue("fechaCreacion", admin.getFechaCreacion());
+//		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+//		paramMap.addValue("nombre", admin.getNombre());
+//		paramMap.addValue("cargo", admin.getCargo());
+//		paramMap.addValue("fechaCreacion", admin.getFechaCreacion());
+		
+		BeanPropertySqlParameterSource paramMap = new BeanPropertySqlParameterSource(admin);
+		
+		//Siempre y cuando el nombre de la propiedad sea identica al del setter y getter
+		
+		
 		return jdbcTemplate.update("insert into Admin(nombre,cargo,fechaCreacion)values(:nombre,:cargo,:fechaCreacion)", paramMap)==1;
 	}
 	@Override
@@ -50,6 +58,20 @@ public class AdminDaoImpl implements AdminDao{
 			}
 			
 		});
+	}
+	@Override
+	public Admin findById(Integer id) {
+		
+//		return (Admin) jdbcTemplate.query("SELECT * FROM ADMIN WHERE idAd=:idAd"
+//				,new MapSqlParameterSource("idAd",id), new AdminRowMapper());
+		return jdbcTemplate.queryForObject("SELECT * FROM ADMIN WHERE idAd=:idAd"
+				,new MapSqlParameterSource("idAd",id), new AdminRowMapper());
+	}
+	@Override
+	public List<Admin> findByNombre(String nombre) {
+
+		return jdbcTemplate.query("SELECT * FROM ADMIN WHERE nombre like :nombre",
+				new MapSqlParameterSource("nombre","%" + nombre + "%"), new AdminRowMapper());
 	}
 
 }
