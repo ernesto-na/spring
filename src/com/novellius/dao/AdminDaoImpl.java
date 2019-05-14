@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Component;
 
 import com.novellius.pojo.Admin;
@@ -39,7 +41,7 @@ public class AdminDaoImpl implements AdminDao{
 		//Siempre y cuando el nombre de la propiedad sea identica al del setter y getter
 		
 		
-		return jdbcTemplate.update("insert into Admin(nombre,cargo,fechaCreacion)values(:nombre,:cargo,:fechaCreacion)", paramMap)==1;
+		return jdbcTemplate.update("INSERT INTO Admin(nombre,cargo,fechaCreacion)values(:nombre,:cargo,:fechaCreacion)", paramMap)==1;
 	}
 	@Override
 	public List<Admin> findAll() {
@@ -84,6 +86,13 @@ public class AdminDaoImpl implements AdminDao{
 	public Boolean delete(Integer idAd) {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.update("DELETE FROM admin where idAd=:idAd",new MapSqlParameterSource("idAd" ,idAd)) == 1;
+	}
+	@Override
+	public int[] saveAll(List<Admin> admins) {
+		// TODO Auto-generated method stub
+		SqlParameterSource[] batchArgs = SqlParameterSourceUtils.createBatch(admins.toArray());
+		return jdbcTemplate.batchUpdate("INSERT INTO Admin(nombre,cargo,fechaCreacion)values(:nombre,:cargo,:fechaCreacion)"
+				, batchArgs);
 	}
 
 }

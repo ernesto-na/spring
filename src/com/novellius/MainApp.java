@@ -1,6 +1,7 @@
 package com.novellius;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,16 +47,23 @@ public class MainApp {
 //			System.out.println(adminDao.findById(4));
 //			System.out.println(adminDao.findById(1));
 //			System.out.println(adminDao.findByNombre("J").toString());
-			Admin admin= adminDao.findById(1);
-			System.out.println("admin con id 1"+ admin);
-			if(adminDao.update(admin)) {
-				
-				System.out.println("Se ha actualizado correctamente: "+ admin);
-			}
-			if(adminDao.delete(admin.getIdAd())) {
-				
-				System.out.println("Eliminado correctamente: "+ admin);
-			}
+		List <Admin> admins = new ArrayList<Admin>();
+		admins.add(new Admin("julio","desarrollador",ts));
+		admins.add(new Admin("ricardo","desarrollador",ts));
+		admins.add(new Admin("Fernando","director",ts));
+		
+		int[] vals = adminDao.saveAll(admins);
+		
+//		for(Integer i=0; i<vals.length; i++) {
+//			
+//			System.out.println("filas agregadas "+vals[i]);
+//		}
+		
+		for(int i : vals) {
+			
+			System.out.println("filas afectadas para la operacion" + i);
+		}
+		
 		}catch(CannotGetJdbcConnectionException ex) {
 			
 			ex.printStackTrace();
