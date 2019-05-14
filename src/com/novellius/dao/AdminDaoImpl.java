@@ -73,5 +73,17 @@ public class AdminDaoImpl implements AdminDao{
 		return jdbcTemplate.query("SELECT * FROM ADMIN WHERE nombre like :nombre",
 				new MapSqlParameterSource("nombre","%" + nombre + "%"), new AdminRowMapper());
 	}
+	@Override
+	public Boolean update(Admin admin) {
+		// TODO Auto-generated method stub
+		System.out.println("---->"+admin);
+		return jdbcTemplate.update("UPDATE admin SET nombre= :nombre , cargo= :cargo , fechaCreacion= :fechaCreacion where idAd=:idAd",
+				new BeanPropertySqlParameterSource(admin))==1;
+	}
+	@Override
+	public Boolean delete(Integer idAd) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.update("DELETE FROM admin where idAd=:idAd",new MapSqlParameterSource("idAd" ,idAd)) == 1;
+	}
 
 }

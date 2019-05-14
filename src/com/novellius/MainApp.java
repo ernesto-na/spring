@@ -22,10 +22,10 @@ public class MainApp {
 		
 		Timestamp ts = new Timestamp(new Date().getTime());
 		
-		Admin admin = new Admin();
-		admin.setNombre("Juss");
-		admin.setCargo("developer");
-		admin.setFechaCreacion(ts);
+//		Admin admin = new Admin();
+//		admin.setNombre("Octavio");
+//		admin.setCargo("profesor");
+//		admin.setFechaCreacion(ts);
 		
 		
 		
@@ -43,10 +43,19 @@ public class MainApp {
 //				System.out.println(admin2);
 //			}
 			
-			System.out.println(adminDao.findById(4));
-			System.out.println(adminDao.findById(1));
-			System.out.println(adminDao.findByNombre("J").toString());
-			
+//			System.out.println(adminDao.findById(4));
+//			System.out.println(adminDao.findById(1));
+//			System.out.println(adminDao.findByNombre("J").toString());
+			Admin admin= adminDao.findById(1);
+			System.out.println("admin con id 1"+ admin);
+			if(adminDao.update(admin)) {
+				
+				System.out.println("Se ha actualizado correctamente: "+ admin);
+			}
+			if(adminDao.delete(admin.getIdAd())) {
+				
+				System.out.println("Eliminado correctamente: "+ admin);
+			}
 		}catch(CannotGetJdbcConnectionException ex) {
 			
 			ex.printStackTrace();
